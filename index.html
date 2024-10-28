@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><title>Flower Guesser</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body onload="">
+    <div>
+      <h1>Flower Guesser</h1>
+    </div>
+      <label>Sepal Length in cm</label>
+      <input id="sepalLength" type="number" min="0.01" max="10">
+      <label>Sepal Width in cm</label>
+      <input id="sepalWidth" type="number" min="0.01" max="10">
+      <label>Petal Length in cm</label>
+      <input id="petalLength" type="number" min="0.01" max="10">
+      <label>Petal Width in cm</label>
+      <input id="petalWidth" type="number" min="0.01" max="10">
+      <button onclick="update()">Get Guess</button>
+    <div>
+      <table>
+        <thead>
+          <th>Sepal length</th>
+          <th>Sepal width</th>
+          <th>Petal length</th>
+          <th>Petal width</th>
+          <th>Guess</th>
+        </thead>
+        <tbody id="resultTable">
+
+        </tbody>
+      </table>
+    </div>
+	  <script src="https://unpkg.com/brain.js"></script>
+    <script src="src/script.js"></script>
+  </body>
+</html>
