@@ -1,6 +1,7 @@
 //Inicializar red neuronal
 var network = new brain.NeuralNetwork();
 
+// here we provide the training data, and also inform the neural network that we want 3 possible outputs 
 network.train([
     //Setosa
     {input: {sepalLength: .51, sepalWidth: .35, petalLength: .14, petalWidth: .02}, output: {setosa:1 ,vesicolor:0, virginica:0}},
@@ -62,22 +63,25 @@ network.train([
     {input: {sepalLength: .64, sepalWidth: .32, petalLength: .53, petalWidth: .19}, output: {setosa:0 ,vesicolor:0, virginica:1}},
     {input: {sepalLength: .68, sepalWidth: .30, petalLength: .55, petalWidth: .21}, output: {setosa:0 ,vesicolor:0, virginica:1}},
     {input: {sepalLength: .57, sepalWidth: .25, petalLength: .50, petalWidth: .20}, output: {setosa:0 ,vesicolor:0, virginica:1}},
-    {input: {sepalLength: .58, sepalWidth: .28, petalLength: .51, petalWidth: .24}, output: {setosa:0 ,vesicolor:0, virginica:1}},
+    {input: {sepalLength: .58, sepalWidth: .28, petalLength: .51, petalWidth: .24}, output: {setosa:0 ,vesicolor:0, virginica:1}},    
     {input: {sepalLength: .64, sepalWidth: .32, petalLength: .53, petalWidth: .23}, output: {setosa:0 ,vesicolor:0, virginica:1}},
     {input: {sepalLength: .65, sepalWidth: .30, petalLength: .55, petalWidth: .18}, output: {setosa:0 ,vesicolor:0, virginica:1}},
     {input: {sepalLength: .77, sepalWidth: .38, petalLength: .67, petalWidth: .22}, output: {setosa:0 ,vesicolor:0, virginica:1}},
     {input: {sepalLength: .77, sepalWidth: .26, petalLength: .69, petalWidth: .23}, output: {setosa:0 ,vesicolor:0, virginica:1}},
-    {input: {sepalLenght: .60, sepalWidth: .22, petalLength: .50, petalWidth: .15}, output: {setosa:0 ,vesicolor:0, virginica:1}},
   ])
 
+/**
+ * This is the update method that is called when the "Guess" button is clicked.
+ * The moment the button is clicked this function gets the value inputed in the 
+ * input boxes and stores them into a array, those values are then divided by 10
+ * so the neuronal network can understant them.
+ * We then send the information to the neuronal network and ask for the result.
+ * Finally we append a new row to the table located in the weebpage body and 
+ * call the createResultToShow function. 
+ */ 
 function update() {
   var table = document.getElementById("resultTable");
   var measurements=[document.getElementById("sepalLength").value,document.getElementById("sepalWidth").value,document.getElementById("petalLength").value,document.getElementById("petalWidth").value];
-
-  console.log(measurements[0]);
-  console.log(measurements[1]);
-  console.log(measurements[2]);
-  console.log(measurements[3]);
 
   var entry = {
     sepalLength: measurements[0]/10,
@@ -86,15 +90,19 @@ function update() {
     petalWidth: measurements[3]/10
   }
 
-  console.log(entry.sepalLength);
-  console.log(entry.sepalWidth);
-  console.log(entry.petalLength);
-  console.log(entry.petalWidth);
-
   var result = network.run(entry);
   console.log(result);
   table.appendChild(createResultToShow(measurements,result))
 }
+
+/**
+ * This function creates the table row and loads into it the inputs that the 
+ * user inserted and then looks to see which is the most probale species those
+ * measurements belong and inserts them in the row.
+ * @param measurements - the array with the inputs from the user
+ * @param result - the result from the neural network calculations
+ * @returns node
+ */
 
 function createResultToShow(measurements,result){
   var node = document.createElement("tr")
@@ -117,7 +125,7 @@ function createResultToShow(measurements,result){
       } 
     }
   }
-  console.log(type)
+
   node.appendChild(tData.appendChild(document.createTextNode(type)))
   return node
 }
